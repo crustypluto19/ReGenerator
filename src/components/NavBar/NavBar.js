@@ -1,11 +1,13 @@
 import React from 'react'
 import './NavBar.css'
-import { Link } from 'react-router-dom'
 
 function NavBar() {
   return (
-    <div className="nav">
-      <h1>This is a navbar</h1>
+    <div>
+      <nav className="flex items-center justify-between flex-wrap bg-purple-500 p-6 mb-10">
+        <h1>Regenerator</h1>
+
+      </nav>
     </div>
   )
 }
