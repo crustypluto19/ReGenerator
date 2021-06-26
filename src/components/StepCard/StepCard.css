@@ -1,6 +1,7 @@
 .card {
-  /* Add shadows to create the "card" effect */
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  padding: 10px 16px;
+  margin: 20px 0;
+  border: 1px solid #fafafa;
   transition: 0.3s;
 }   
 
