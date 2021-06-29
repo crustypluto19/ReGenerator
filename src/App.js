@@ -14,7 +14,7 @@ function App() {
   const [ingredients, setIngredients] = useState([])
   const [value, setValue] = useState('')
   const [instructions, setInstructions] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
 
   const fetchData = async () => {
@@ -22,7 +22,8 @@ function App() {
     ingredients.forEach((e) => {
       prompt = prompt.concat("\n").concat(e);
     })
-
+    prompt.concat("\nDirections:")
+    
     // TODO: variable max tokens
 
     const api = {
@@ -41,26 +42,18 @@ function App() {
 
     // check for additional ingredients
     let instr = gptResponse.data.choices[0].text;
-    let temp = instr.indexOf("Instructions");
+    let temp = instr.indexOf("Instructions:");
+    temp = temp < 0 ? instr.indexOf(1) : temp
 
-
-    if (temp > 0) {
-      let additionalIngredients = instr.substring(0,temp).trim().split('\n');
-      let ingr = ingredients.concat(additionalIngredients);
-      setIngredients(ingr);
-    }
+    let additionalIngredients = instr.substring(0,temp).trim().split('\n');
+    additionalIngredients.map(e => ingredients.concat(e))
+    let ingr = ingredients.concat(additionalIngredients);
+    setIngredients(ingr);
+    
+    //console.log(instr)
 
     setInstructions(instr.substring(temp, instr.length).split('\n'));
-    setIsLoading(false)
   }
-
-  /*
-  const displaySteps = (instructions) => {
-    instructions.forEach((step) => {
-      console.log(step);
-    })
-  }
-  */
 
   const handleChange = event => {
     setValue(event.target.value);
@@ -82,7 +75,10 @@ function App() {
   const handleFetch = () => {
     // minimum of 3 ingredients
     if (ingredients.length >= 3) {
+      setIsLoading(true)
       fetchData();
+      setIsLoading(false)
+
     } else {
     // TODO: make it look nicer
       alert("Please enter at least 3 ingredients!")
@@ -93,7 +89,6 @@ function App() {
     if (window.confirm('Are you sure you wish to reset everything?')) {
       setIngredients([])
       setInstructions([])
-      setIsLoading(true)
     }
   }
 
@@ -101,8 +96,11 @@ function App() {
     <div className="App">
       <NavBar />
       <Form functions={{handleChange, handleFetch, handleSubmit, reset}} value={value} />
-      <IngredientsList ingredients={ingredients} />
-      <InstructionsList instructions={instructions} isLoading={isLoading} />
+      <div className="container mx-auto flex flex-wrap mt-10 items-start w-1/2">
+        { ingredients.length !== 0 && <IngredientsList ingredients={ingredients} />}
+        { isLoading && <div> Generating recipe... </div> }
+        { instructions.length !== 0 && <InstructionsList instructions={instructions} isLoading={isLoading} />}
+      </div>
       
     </div>
   );
