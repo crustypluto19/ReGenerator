@@ -1,9 +1,12 @@
 import './App.css';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import NavBar from './components/NavBar/NavBar';
 import IngredientsList from './components/IngredientsList';
 import Form from './components/Form';
 import InstructionsList from './components/InstructionsList';
+import text from "./PromptAPI"
+import Loading from './components/Loading';
+import Footer from './components/Footer/Footer';
 
 function App() {
   // init gpt related stuff
@@ -16,9 +19,14 @@ function App() {
   const [instructions, setInstructions] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
+  useEffect(() => {
+    return () => {
+      setIsLoading(false)
+    }
+  }, [instructions]);
 
   const fetchData = async () => {
-    let prompt = "Write a recipe based on these ingredients and instructions:\nIngredients:"; 
+    let prompt = text; 
     ingredients.forEach((e) => {
       prompt = prompt.concat("\n").concat(e);
     })
@@ -30,30 +38,23 @@ function App() {
       engine: "curie-instruct-beta",
       prompt: prompt,
       temperature: 0,
-      max_tokens: 170,
+      max_tokens: 240,
       top_p: 1,
-      frequency_penalty: 0.2,
+      frequency_penalty: 0.15,
       presence_penalty: 0
     }
 
     const gptResponse = await openai.complete(api);
   
     console.log(gptResponse.data.choices[0]);
-
-    // check for additional ingredients
+    
     let instr = gptResponse.data.choices[0].text;
     let temp = instr.indexOf("Instructions:");
     temp = temp < 0 ? instr.indexOf(1) : temp
 
-    let additionalIngredients = instr.substring(0,temp).trim().split('\n');
-    additionalIngredients.map(e => ingredients.concat(e))
-    let ingr = ingredients.concat(additionalIngredients);
-    setIngredients(ingr);
-    
-    //console.log(instr)
-
     setInstructions(instr.substring(temp, instr.length).split('\n'));
   }
+
 
   const handleChange = event => {
     setValue(event.target.value);
@@ -77,8 +78,6 @@ function App() {
     if (ingredients.length >= 3) {
       setIsLoading(true)
       fetchData();
-      setIsLoading(false)
-
     } else {
     // TODO: make it look nicer
       alert("Please enter at least 3 ingredients!")
@@ -95,13 +94,20 @@ function App() {
   return (
     <div className="App">
       <NavBar />
+
       <Form functions={{handleChange, handleFetch, handleSubmit, reset}} value={value} />
-      <div className="container mx-auto flex flex-wrap mt-10 items-start w-1/2">
-        { ingredients.length !== 0 && <IngredientsList ingredients={ingredients} />}
-        { isLoading && <div> Generating recipe... </div> }
-        { instructions.length !== 0 && <InstructionsList instructions={instructions} isLoading={isLoading} />}
+
+      <div className="container mx-auto flex flex-wrap mt-5 w-1/2 content-center justify-center">
+
+        { ingredients.length !== 0 && !isLoading && <IngredientsList ingredients={ingredients} />}
+
+        <div className="">{ isLoading && <Loading /> }</div>
+
+        { instructions.length !== 0 && !isLoading && <InstructionsList instructions={instructions} />}
       </div>
       
+      <Footer />
+
     </div>
   );
 }
