@@ -31,8 +31,7 @@ function App() {
       prompt = prompt.concat("\n").concat(e);
     })
     prompt.concat("\nDirections:")
-    
-    // TODO: variable max tokens
+
 
     const api = {
       engine: "curie-instruct-beta",
@@ -46,7 +45,7 @@ function App() {
 
     const gptResponse = await openai.complete(api);
   
-    console.log(gptResponse.data.choices[0]);
+    //console.log(gptResponse.data.choices[0]);
     
     let instr = gptResponse.data.choices[0].text;
     let temp = instr.indexOf("Instructions:");
@@ -84,6 +83,8 @@ function App() {
     }
   }
 
+  
+
   const reset = () => {
     if (window.confirm('Are you sure you wish to reset everything?')) {
       setIngredients([])
@@ -92,18 +93,16 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App relative min-h-screen">
       <NavBar />
 
-      <Form functions={{handleChange, handleFetch, handleSubmit, reset}} value={value} />
-
-      <div className="container mx-auto flex flex-wrap mt-5 w-1/2 content-center justify-center">
-
-        { ingredients.length !== 0 && !isLoading && <IngredientsList ingredients={ingredients} />}
-
-        <div className="">{ isLoading && <Loading /> }</div>
-
-        { instructions.length !== 0 && !isLoading && <InstructionsList instructions={instructions} />}
+      <div className="m-10 min-h-screen">
+        <Form functions={{handleChange, handleFetch, handleSubmit, reset}} value={value} />
+        <div className="container mx-auto flex flex-wrap mt-5 w-5/6 content-center justify-center mb-30">
+          { ingredients.length !== 0 && !isLoading && <IngredientsList ingredients={ingredients} update={setIngredients} />}
+          <div className="">{ isLoading && <Loading /> }</div>
+          { instructions.length !== 0 && !isLoading && <InstructionsList instructions={instructions} />}
+        </div>
       </div>
       
       <Footer />

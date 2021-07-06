@@ -18,8 +18,13 @@ const Form = (props) => {
                 </button>
             </form>
 
-            <button className = "bg-purple-500 hover:bg-green-500 text-white font-bold py-2 px-4 border-b-4 border-gray-400 hover:border-purple-300 rounded m-1 mb-3" onClick={handleFetch}>Generate recipe</button>
-            <button className = "bg-transparent hover:bg-red-400 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-700 hover:border-transparent rounded m-1 mb-3" onClick={reset} >Reset</button>
+            <button onClick={handleFetch} className = "bg-purple-500 hover:bg-green-500 text-white font-bold py-2 px-4 border-b-4 border-gray-400 hover:border-purple-300 rounded m-1 mb-3">
+                        Generate recipe
+            </button>
+
+            <button onClick={reset} className = "bg-transparent hover:bg-red-400 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-700 hover:border-transparent rounded m-1 mb-3">
+                    Reset
+            </button>
 
         </div>
     )
