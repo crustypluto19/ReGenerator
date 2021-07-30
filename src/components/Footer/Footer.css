@@ -7,3 +7,12 @@
     height: 5rem;   
     align-items: center; 
 }
+
+.text {
+    position: absolute;
+    right: 0;   
+}
+
+.parent {
+    margin-top: auto;
+}
