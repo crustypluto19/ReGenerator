@@ -2,10 +2,12 @@ import React from 'react'
 
 const Form = (props) => {
     const functions = props.functions;
+    const length = props.length;
 
     const handleSubmit = functions.handleSubmit;
     const handleChange = functions.handleChange;
     const handleFetch = functions.handleFetch;
+    const handleSave = functions.handleSave;
     const value = props.value;
     const reset = functions.reset;
 
@@ -22,6 +24,12 @@ const Form = (props) => {
                         Generate recipe
             </button>
 
+            {length !== 0 && 
+                <button onClick={handleSave} className = "bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-700 hover:border-transparent rounded m-1 mb-3">
+                    Save
+                </button>
+            }
+            
             <button onClick={reset} className = "bg-transparent hover:bg-red-400 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-700 hover:border-transparent rounded m-1 mb-3">
                     Reset
             </button>
