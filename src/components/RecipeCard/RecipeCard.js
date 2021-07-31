@@ -47,7 +47,7 @@ export default function RecipeCard(props) {
 
     return (
         <div className="p-5">
-            <Card className={classes.root}>
+            <Card className="bg-clip-padding bg-opacity-80 border border-gray-200 backdrop-filter-blur mx-auto bg-gradient-to-br from-white to-gray-50">
                 <CardHeader
                     title={'Recipe no. ' + number}
                 />
@@ -71,7 +71,7 @@ export default function RecipeCard(props) {
                     </IconButton>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <div className="container mx-auto bg-purple-200 bg-opacity-20">
+                    <div className="container mx-auto bg-clip-padding bg-opacity-80 border border-gray-200 backdrop-filter-blur bg-gradient-to-br from-white to-purple-100">
                     <CardContent>
                     <Typography paragraph>Instructions</Typography>
                     <Typography paragraph>

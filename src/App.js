@@ -110,7 +110,7 @@ function App() {
           <NavBar />
           <Switch>
             <Route exact path="/">
-              <div className="m-10 min-h-screen pb-10">
+              <div className="m-10 content pb-10">
                 <Form functions={{handleChange, handleFetch, handleSubmit, reset, handleSave}} length={instructions.length} value={value} />
                 <div className="container mx-auto flex flex-wrap mt-5 w-5/6 content-center justify-center mb-30">
                   { ingredients.length !== 0 && !isLoading && <IngredientsList ingredients={ingredients} update={setIngredients} />}
@@ -120,10 +120,10 @@ function App() {
               </div>
             </Route>
             <Route path="/recipes">
-              <div>
-               {<h1><b>Recipes</b></h1> }
+              <div className="container">
+               <h1><b>Recipes</b></h1>
               </div>
-              <div className="pb-10 min-h-screen">
+              <div className="pb-10 content">
                 <Recipe recipes={recipes}/>
               </div>
             </Route>

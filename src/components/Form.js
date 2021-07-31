@@ -20,7 +20,7 @@ const Form = (props) => {
                 </button>
             </form>
 
-            <button onClick={handleFetch} className = "bg-purple-500 hover:bg-green-500 text-white font-bold py-2 px-4 border-b-4 border-gray-400 hover:border-purple-300 rounded m-1 mb-3">
+            <button onClick={handleFetch} className = "bg-gradient-to-r bg-purple-500 hover:from-green-400 via-indigo-400 to-blue-500 text-white font-bold py-2 px-4 border-b-4 border-gray-400 hover:border-purple-300 rounded m-1 mb-3">
                         Generate recipe
             </button>
 
