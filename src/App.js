@@ -52,7 +52,7 @@ function App() {
 
     const gptResponse = await openai.complete(api);
   
-    console.log(gptResponse.data.choices[0].text);
+    // console.log(gptResponse.data.choices[0]);
     
     let instr = gptResponse.data.choices[0].text;
     let temp = instr.indexOf("Instructions:");
@@ -94,7 +94,6 @@ function App() {
     localStorage.setItem('Recipes', JSON.stringify(recipes))
     setRecipes(recipes)
     window.alert("Successfully saved recipe!")
-    //console.log(recipes)
   }
 
   const reset = () => {

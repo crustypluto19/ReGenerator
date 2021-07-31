@@ -8,7 +8,7 @@ const Footer = () => {
                 <a target="_blank" rel="noopener noreferrer" href="https://github.com/crustypluto19">
                     <FiGithub color="white" className="h-6 w-6 m-3 align-middle small" />
                 </a>
-                <h3 className="text-white">Evan C.</h3>
+                <h3 className="text-white text2">Evan C.</h3>
                 <p className="text text-white pr-10">Recipe Generator powered by OpenAI</p>
             </footer>
         </div>

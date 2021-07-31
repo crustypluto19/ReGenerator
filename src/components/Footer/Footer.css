@@ -5,6 +5,7 @@
     width: 100%;
     align-items: center; 
     min-height: 4rem;
+    padding: 20px;
 }
 
 .text {
@@ -17,7 +18,7 @@
 }
 
 @media only screen and (max-width: 480px) {
-    .text {
-      display: none;
+    .text2 {
+        display: none;
     }
   }
