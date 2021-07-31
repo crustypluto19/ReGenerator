@@ -3,8 +3,8 @@
     bottom: 0px;
     left: 0;
     width: 100%;
-    height: 5rem;   
     align-items: center; 
+    min-height: 4rem;
 }
 
 .text {
@@ -15,3 +15,9 @@
 .parent {
     margin-top: auto;
 }
+
+@media only screen and (max-width: 480px) {
+    .text {
+      display: none;
+    }
+  }

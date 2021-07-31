@@ -52,7 +52,7 @@ function App() {
 
     const gptResponse = await openai.complete(api);
   
-    //console.log(gptResponse.data);
+    console.log(gptResponse.data.choices[0].text);
     
     let instr = gptResponse.data.choices[0].text;
     let temp = instr.indexOf("Instructions:");
@@ -63,7 +63,7 @@ function App() {
 
 
   const handleChange = event => {
-    setValue(event.target.value);
+    setValue(event.target.value.toLowerCase());
   }
 
   const handleSubmit = event => {
@@ -112,7 +112,7 @@ function App() {
             <Route exact path="/">
               <div className="m-10 content pb-10">
                 <Form functions={{handleChange, handleFetch, handleSubmit, reset, handleSave}} length={instructions.length} value={value} />
-                <div className="container mx-auto flex flex-wrap mt-5 w-5/6 content-center justify-center mb-30">
+                <div className="container mx-auto flex flex-wrap mt-5 content-center justify-center mb-30 w-full lg:w-5/6">
                   { ingredients.length !== 0 && !isLoading && <IngredientsList ingredients={ingredients} update={setIngredients} />}
                   <div className="">{ isLoading && <Loading /> }</div>
                   { instructions.length !== 0 && !isLoading && <InstructionsList instructions={instructions} />}

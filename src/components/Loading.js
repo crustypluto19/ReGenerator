@@ -12,7 +12,7 @@ const Loading = () => {
     return (
         <div className="container mx-auto flex flex-col content-end justify-center w-52">
             <h3 className="text-purple-900 leading-tight mb-6">Generating recipe...</h3>
-            <PacmanLoader color="#9561e2" css={override} size={30} />
+            <PacmanLoader color="#8E5DF5" css={override} size={30} />
         </div>
     )
 }
