@@ -52,13 +52,26 @@ function App() {
 
     const gptResponse = await openai.complete(api);
   
-    // console.log(gptResponse.data.choices[0]);
+    console.log(gptResponse.data.choices[0]);
     
     let instr = gptResponse.data.choices[0].text;
     let temp = instr.indexOf("Instructions:");
-    temp = temp < 0 ? instr.indexOf(1) : temp
 
-    setInstructions(instr.substring(temp, instr.length).split('\n').filter((e) => e !== ""));
+    temp = temp > 0 ? temp 
+            : instr.indexOf("Directions:") > 0 ? instr.indexOf("Directions:")
+             :  instr.indexOf(1);
+
+    // add additional ingredients that might've been generated in the return text
+    let additionalIngredients = instr.substring(0,temp).trim().split('\n').filter((e) => e !== "")
+                                      .filter((e) => e !== "Ingredients:").filter(e => !ingredients.includes(e));
+    additionalIngredients.map(e => ingredients.concat(e))
+    let ingr = ingredients.concat(additionalIngredients.filter((e) => !ingredients.includes(e)));
+    //console.log(ingr)
+    setIngredients(ingr); 
+
+    let newInstr = instr.substring(temp, instr.length).split('\n').filter((e) => e !== "" ).filter((e) => e !== "Directions:")
+    //console.log(newInstr)
+    setInstructions(newInstr);
   }
 
 
